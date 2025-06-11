@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
+import "./index.css";
 
 const pizzaData = [
     {
@@ -49,7 +50,7 @@ const pizzaData = [
 
 function App(){
     return (
-        <div>
+        <div className="container">
             <Header/>
             <Menu/>
             <Footer/>
@@ -57,18 +58,44 @@ function App(){
     )
 }
 function Header() {
+    const style ={};
     return(
-        <div>
-            <h1>Fast React Pizza Menu</h1>
-        </div>
+        <header className="header">
+            <h1 style={style}>Fast React Pizza Co.</h1>
+        </header>
     )
 }
 function Menu() {
-    return <div>
+    return (
+        <main className='menu'>
         <h2>Our menu</h2>
-        <Pizza/>
-    </div>
+        <Pizza name="Pizza Spinaci"
+               ingredient="Tomato, mozarella, spinach, and ricotta cheese"
+               photoName="pizzas/spinaci.jpg"
+               price={10}
+        />
+            <Pizza name= "Pizza Funghi"
+            ingredients= "Tomato, mozarella, mushrooms, and onion"
+            price= {12}
+            photoName= "pizzas/funghi.jpg"
+            />
+    </main>
+    )
 }
+function Pizza(props){
+    console.log(props)
+    return (
+        <div className="pizza">
+            <img src={props.photoName} alt={props.name}/>
+            <div>
+            <h3>{props.name}</h3>
+            <p>{props.ingredient} </p>
+                <span>{props.price + 3}</span>
+            </div>
+        </div>
+    )
+}
+
 function Footer() {
     const hour = new Date().getHours();
     const openHour = 12;
@@ -78,20 +105,10 @@ function Footer() {
     const isOpen = hour >= openHour && hour <= closeHour;
     console.log(isOpen)
    return(
-       <div>
-           <footer>{new Date().toLocaleDateString()}We're currently open</footer>
-       </div>
+           <footer className="footer">{new Date().toLocaleDateString()} We're currently open</footer>
    )
 }
-function Pizza(){
-    return (
-        <div>
-            <img src='pizzas/spinaci.jpg' alt='Pizza Spinaci'/>
-            <h2>Pizza Spinaci</h2>
-            <p>Tomato, mozarella, ham, aragula, and burrata cheese</p>
-        </div>
-    )
-}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<React.StrictMode>
     <App/>
