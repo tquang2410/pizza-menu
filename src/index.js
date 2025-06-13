@@ -85,7 +85,8 @@ function Menu() {
     )
 }
 function Pizza(props){
-    console.log(props)
+    // console.log(props)
+    if (props.pizzaObj.soldOut) return null;
     return (
         <li className="pizza">
             <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}/>
@@ -109,17 +110,18 @@ function Footer() {
     console.log(isOpen)
    return(
            <footer className="footer">
-               {isOpen ? (
-                   <div className="order">
-                       <p>We're open until {closeHour}:00. Come and visit us</p>
-                       <button className="btn">Order</button>
-                   </div>
-               ) : <p>We will open at {openHour}AM until {closeHour}PM ! </p>
+               {isOpen ? ( <Order closeHour={closeHour}/> ) :
+                   <p>We will open at {openHour}AM until {closeHour}PM ! </p>
                }
            </footer>
    )
 }
-
+function Order(props) {
+    return   <div className="order">
+        <p>We're open until {props.closeHour}:00. Come and visit us</p>
+        <button className="btn">Order</button>
+    </div>
+}
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<React.StrictMode>
     <App/>
